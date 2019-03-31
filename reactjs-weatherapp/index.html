@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ReactJS: Routing: Weather App</title>
+
+    <style>
+    @import 'https://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400i,700,700i|Kalam:300';
+    </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+
+  </head>
+  <body>
+
+    <header>
+      <img src="../img/logo-reactjs.png" width="200">
+
+      <h1>Routing: Weather App</h1>
+    </header>
+
+    <main>
+      <section>
+        <h2>Introduction</h2>
+        <p>We are going to build a simple weather app to know what temperature has a location</p>
+        <p>It will be a Single Page App with a number of screens</p>
+        <p>Each screen will be linked to a unique url (routing)</p>
+        <p>Weather info will be fetched from an Weather API</p>
+      </section>
+
+      <section>
+        <h2>Component strategy</h2>
+        <p>The Main Component will not render anything , it will have only children</p>
+        <p>The Nav component will be inside Main and will also render children</p>
+        <p>And the page component will change when screen will change</p>
+        <img src="../img/weather-capture-1.png" width="100%">
+
+        <div class="sample">
+           <xmp class="code">
+            </xmp>
+        </div>
+      </section>
+
+      <section>
+        <h2>Presentational and Container Components</h2>
+        <p>You’ll find your components much easier to reuse and reason about if you divide them into two categories.
+          I call them Container and Presentational components* but I also heard Fat and Skinny, Smart and Dumb, Stateful
+          and Pure, Screens and Components, etc. These all are not exactly the same, but the core idea is similar.
+        </p>
+        <p>
+          <h3>My presentational components:</h3>
+          <ul>
+            <li>Are concerned with <strong>how things look</strong>.</li>
+            <li>May contain both presentational and container components** inside, and usually <strong>have some DOM markup and styles of their own</strong>.</li>
+            <li>Often allow containment via <strong>this.props.children</strong>.</li>
+            <li>Have no dependencies on the rest of the app, such as Flux actions or stores.</li>
+            <li>Don’t specify how the data is loaded or mutated.</li>
+            <li><strong>Receive data and callbacks exclusively via props</strong>.</li>
+            <li><strong>Rarely have their own state</strong> (when they do, it’s UI state rather than data).</li>
+            <li>Are written as functional components unless they need state, lifecycle hooks, or performance optimizations.</li>
+            <li>Examples: Page, Sidebar, Story, UserInfo, List.</li>
+          </ul>
+        </p>
+        <p>
+          <h3>My container components:</h3>
+          <ul>
+            <li>Are concerned with <strong>how things work</strong>.</li>
+            <li>May contain both presentational and container components** inside but <strong>usually don’t have any DOM markup of their own</strong> except for some wrapping divs, and never have any styles.</li>
+            <li>Provide the data and behavior to presentational or other container components.</li>
+            <li>Call Flux actions and provide these as callbacks to the presentational components.</li>
+            <li>Are often stateful, as they tend to <strong>serve as data sources</strong>.</li>
+            <li>Are usually generated using higher order components such as connect() from React Redux, createContainer() from Relay, or Container.create() from Flux Utils, rather than written by hand.</li>
+            <li>Examples: UserPage, FollowersSidebar, StoryContainer, FollowedUserList.</li>
+          </ul>
+        </p>
+      </section>
+
+      <section>
+        <h2>Adding React Router</h2>
+        <p>We use this React plugin for make routing to different pages.
+          <br>
+          Github: <a href="https://github.com/ReactTraining/react-router">https://github.com/ReactTraining/react-router</a></p>
+        <div class="sample">
+           <xmp class="code">
+             npm install react-router@2.0.0
+            </xmp>
+        </div>
+
+        <p>Require inside <strong>app.jsx</strong>:</p>
+        <div class="sample">
+           <xmp class="code">
+             var {Route, Router, IndexRoute, hashHistory} = require('react-router');
+            </xmp>
+        </div>
+        <div class="sample">
+           <xmp class="code">
+             ReactDOM.render(
+               <Router history={hashHistory}>
+                 <Route path="/" component={Main}>
+                   <Route path="about" component={About}/>
+                   <Route path="examples" component={Examples}/>
+                   <IndexRoute component={Weather}/>
+                 </Route>
+               </Router>,
+               document.getElementById('app')
+             );
+            </xmp>
+        </div>
+
+        <p>and inside <strong>Nav.jsx</strong>:</p>
+        <div class="sample">
+           <xmp class="code">
+             var {Link, IndexLink} = require('react-router');
+            </xmp>
+        </div>
+        <div class="sample">
+           <xmp class="code">
+             var Nav = () => {
+               return (
+                 <div>
+                   <h2>Nav Component</h2>
+                   <IndexLink to="/" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Get Weather</IndexLink>
+                   <Link to="/about" activeClassName="active"  activeStyle={{fontWeight: 'bold'}}>About</Link>
+                   <Link to="/examples" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Examples</Link>
+                 </div>
+               );
+             };
+            </xmp>
+        </div>
+        <p>With Link we can specify active styles for active option in Menu</p>
+
+
+      </section>
+
+
+      <section>
+        <h2>Stateless functional components</h2>
+        <p>There is an abbreviated way to rewrite presentational componentes using arrow functions. React calls them stateless functional components</p>
+
+        <p>This code for About component:</p>
+        <div class="sample">
+           <xmp class="code">
+            var About = React.createClass({
+              render: function() {
+                return (
+                  <h3>About Component</h3>
+                );
+              }
+            });
+          </xmp>
+      </div>
+      <p>turn into:</p>
+      <div class="sample">
+         <xmp class="code">
+           var About = (props) => {
+             return (
+               <h3>About Component</h3>
+             );
+           };
+          </xmp>
+      </div>
+      <p>This transformation can only be done in components with only a render method and the don't store any state information</p>
+      <p>Another example with the WeatherMessage component. Here we use destructuring to get the values of temp and location from props:</p>
+      <div class="sample">
+         <xmp class="code">
+           var WeatherMessage = ({temp, location}) => {
+             return (
+               <h3>It's it {temp} in {location}.</h3>
+             )
+           };
+          </xmp>
+      </div>
+
+
+      </section>
+
+      <section>
+        <h2>App files</h2>
+        <strong>public/index.html</strong>
+        <div class="sample">
+           <xmp class="code">
+             <!DOCTYPE html>
+             <html>
+
+             <head>
+               <meta charset="UTF-8"/>
+             </head>
+
+             <body>
+               <div id="app"></div>
+
+               <script src="bundle.js"></script>
+             </body>
+
+             </html>
+
+            </xmp>
+        </div>
+
+        <strong>app/app.jsx</strong>
+        <div class="sample">
+           <xmp class="code">
+             var React = require('react');
+             var ReactDOM = require('react-dom');
+             var {Route, Router, IndexRoute, hashHistory} = require('react-router');
+             var Main = require('Main');
+             var Weather = require('Weather');
+             var About = require('About');
+             var Examples = require('Examples');
+
+             ReactDOM.render(
+               <Router history={hashHistory}>
+                 <Route path="/" component={Main}>
+                   <Route path="about" component={About}/>
+                   <Route path="examples" component={Examples}/>
+                   <IndexRoute component={Weather}/>
+                 </Route>
+               </Router>,
+               document.getElementById('app')
+             );
+
+            </xmp>
+        </div>
+
+        <strong>app/components/Main.jsx</strong>
+        <div class="sample">
+           <xmp class="code">
+             var React = require('react');
+             var Nav = require('Nav');
+
+             var Main = (props) => {
+               return (
+                 <div>
+                   <Nav/>
+                   <h2>Main Component</h2>
+                   {props.children}
+                 </div>
+               );
+             }
+
+             module.exports = Main;
+
+            </xmp>
+        </div>
+
+
+        <strong>app/components/Nav.jsx</strong>
+        <div class="sample">
+           <xmp class="code">
+             var React = require('react');
+             var {Link, IndexLink} = require('react-router');
+
+             var Nav = () => {
+               return (
+                 <div>
+                   <h2>Nav Component</h2>
+                   <IndexLink to="/" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Get Weather</IndexLink>
+                   <Link to="/about" activeClassName="active"  activeStyle={{fontWeight: 'bold'}}>About</Link>
+                   <Link to="/examples" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Examples</Link>
+                 </div>
+               );
+             };
+
+             module.exports = Nav;
+
+            </xmp>
+        </div>
+
+        <strong>app/components/About.jsx</strong>
+        <div class="sample">
+           <xmp class="code">
+             var React = require('react');
+
+             var About = (props) => {
+               return (
+                 <h3>About Component</h3>
+               )
+             };
+
+             module.exports = About;
+
+            </xmp>
+        </div>
+        <strong>app/components/Examples.jsx</strong>
+        <div class="sample">
+           <xmp class="code">
+             var React = require('react');
+
+             var Examples = (props) => {
+               return (
+                 <h3>Examples Component</h3>
+               )
+             };
+
+             module.exports = Examples;
+
+            </xmp>
+        </div>
+        <strong>app/components/Weather.jsx</strong>
+        <div class="sample">
+           <xmp class="code">
+             var React = require('react');
+             var WeatherForm = require('WeatherForm');
+             var WeatherMessage = require('WeatherMessage');
+             var openWeatherMap = require('openWeatherMap');
+
+             var Weather = React.createClass({
+               getInitialState: function () {
+                 return {
+                   isLoading: false
+                 }
+               },
+               handleSearch: function (location) {
+                 var that = this;
+
+                 this.setState({isLoading: true});
+
+                 openWeatherMap.getTemp(location).then(function (temp) {
+                   that.setState({
+                     location: location,
+                     temp: temp,
+                     isLoading: false
+                   });
+                 }, function (errorMessage) {
+                   that.setState({isLoading: false});
+                   alert(errorMessage);
+                 });
+               },
+               render: function () {
+                 var {isLoading, temp, location} = this.state;
+
+                 function renderMessage () {
+                   if (isLoading) {
+                     return <h3>Fetching weather...</h3>;
+                   } else if (temp && location) {
+                     return <WeatherMessage temp={temp} location={location}/>;
+                   }
+                 }
+
+                 return (
+                   <div>
+                     <h3>Weather Component</h3>
+                     <WeatherForm onSearch={this.handleSearch}/>
+                     {renderMessage()}
+                   </div>
+                 )
+               }
+             });
+
+             module.exports = Weather;
+
+            </xmp>
+        </div>
+        <strong>app/components/WeatherForm.jsx</strong>
+        <div class="sample">
+           <xmp class="code">
+             var React = require('react');
+
+             var WeatherForm = React.createClass({
+               onFormSubmit: function (e) {
+                 e.preventDefault();
+
+                 var location = this.refs.location.value;
+
+                 if (location.length > 0) {
+                   this.refs.location.value = '';
+                   this.props.onSearch(location);
+                 }
+               },
+               render: function () {
+                 return (
+                     <div>
+                       <form onSubmit={this.onFormSubmit}>
+                         <input type="text" ref="location"/>
+                         <button>Get Weather</button>
+                       </form>
+                     </div>
+                 );
+               }
+             });
+
+             module.exports = WeatherForm;
+
+            </xmp>
+        </div>
+        <strong>app/components/WeatherMessage.jsx</strong>
+        <div class="sample">
+           <xmp class="code">
+             var React = require('react');
+
+             var WeatherMessage = ({temp, location}) => {
+               return (
+                 <h3>It's it {temp} in {location}.</h3>
+               )
+             };
+
+             module.exports = WeatherMessage;
+
+            </xmp>
+        </div>
+        <strong>app/api/openWeatherMap.jsx</strong>
+        <div class="sample">
+           <xmp class="code">
+             var axios = require('axios');
+
+             const OPEN_WEATHER_MAP_URL = 'http://api.openweathermap.org/data/2.5/weather?appid=c4e735ea8bd7e7b6dc8368c752517b2d&units=imperial';
+
+             module.exports = {
+               getTemp: function (location) {
+                 var encodedLocation = encodeURIComponent(location);
+                 var requestUrl = `${OPEN_WEATHER_MAP_URL}&q=${encodedLocation}`;
+
+                 return axios.get(requestUrl).then(function (res) {
+                   if (res.data.cod && res.data.message) {
+                     throw new Error(res.data.message);
+                   } else {
+                     return res.data.main.temp;
+                   }
+                 }, function (res) {
+                   throw new Error(res.data.message);
+                 });
+               }
+             }
+
+            </xmp>
+        </div>
+
+        <strong>webpack.config.js</strong>
+        <div class="sample">
+           <xmp class="code">
+             module.exports = {
+               entry: './app/app.jsx',
+               output: {
+                 path: __dirname,
+                 filename: './public/bundle.js'
+               },
+               resolve: {
+                 root: __dirname,
+                 alias: {
+                   Main: 'app/components/Main.jsx',
+                   Nav: 'app/components/Nav.jsx',
+                   Weather: 'app/components/Weather.jsx',
+                   WeatherForm: 'app/components/WeatherForm.jsx',
+                   WeatherMessage: 'app/components/WeatherMessage.jsx',
+                   About: 'app/components/About.jsx',
+                   Examples: 'app/components/Examples.jsx',
+                   openWeatherMap: 'app/api/openWeatherMap.jsx'
+                 },
+                 extensions: ['', '.js', '.jsx']
+               },
+               module: {
+                 loaders: [
+                   {
+                     loader: 'babel-loader',
+                     query: {
+                       presets: ['react', 'es2015', 'stage-0']
+                     },
+                     test: /\.jsx?$/,
+                     exclude: /(node_modules|bower_components)/
+                   }
+                 ]
+               },
+               devtool: 'cheap-module-eval-source-map'
+             };
+            </xmp>
+        </div>
+      </section>
+
+      <section>
+        <h2>Start app in local</h2>
+        <p>First compile with webpack into bundles.js</p>
+        <p><strong>-w</strong> flag keep watching for changes and recompile to refresh changes</p>
+        <div class="sample">
+           <xmp class="code">
+             webpack -w
+            </xmp>
+        </div>
+        <p>Run webserver in a separate terminal</p>
+        <div class="sample">
+           <xmp class="code">
+             node server.js
+            </xmp>
+        </div>
+      </section>
+
+    </main>
+
+  </body>
+</html>
