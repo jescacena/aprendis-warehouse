@@ -1,0 +1,35 @@
+@import '../../global.scss';
+
+.container {
+    border: 1px solid $border-color;
+    h3 { margin: 1rem 0 0 0; }
+
+    float:left;
+    text-align: center;
+
+    svg {
+        margin: 3rem;
+    }
+}
+
+.list {
+    max-height: 279px;
+    overflow-y: scroll;
+    li {
+        text-align: left;
+
+        padding: 0.5rem ;
+    }
+    svg {
+        margin:0.25rem 0 0 0!important;
+        float:right;
+    }
+}
+
+.listWrapper {
+    margin: 1rem;
+    position:relative;
+    height: 440px;
+
+
+}

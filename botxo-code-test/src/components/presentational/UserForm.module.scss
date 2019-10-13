@@ -1,0 +1,51 @@
+@import "../../global.scss";
+
+.form {
+  position: absolute;
+  bottom:0;
+  clear: both;
+  float: none;
+  text-align: left;
+  border: 1px solid $border-color;
+  padding: 0.2rem;
+
+  div {
+    // clear: both;
+    // float: none;
+    text-align: left;
+    margin-left:0 !important;
+
+    label {
+      display: block;
+      text-align: left;
+      
+    }
+
+
+  }
+}
+
+.formButton {
+  clear: both;
+  float: none;
+  display:inline-block;
+  background-color: $dark-blue-color;
+  color:white;
+  border-radius: 5px;
+  margin: 0.5rem auto;
+  font-size: 0.8rem;
+  padding:0.4rem;
+}
+
+.fieldName {
+  width:6rem;
+  margin-right:1rem;
+}
+.fieldAge {
+  width:2rem;
+
+}
+
+.hide {
+  visibility: hidden;
+}

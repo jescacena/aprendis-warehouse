@@ -1,0 +1,26 @@
+@import "../../global.scss";
+
+.container {
+  background-color: $secondary-color;
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem 0;
+
+  ul {
+    margin: 0 auto;
+    display: inline-block;
+    li {
+      list-style: none;
+      float: left;
+      margin-right: 2rem;
+    }
+  }
+
+  a {
+      float:right;
+      margin-right: 1rem;
+      cursor:pointer;
+
+
+  }
+}

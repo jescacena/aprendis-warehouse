@@ -1,0 +1,30 @@
+@import '../../global.scss';
+
+.container {
+    border: 1px solid $border-color;;
+    padding: 0rem;
+    max-width:1024px;
+    margin: 3em auto 0 auto;
+
+    .up {
+
+        div {
+            float:left;
+            text-align: center;
+
+            svg {
+                margin: 3rem;
+            }
+
+        }
+
+        div:first-child {
+            margin-left: 6rem;
+
+        }
+    }
+    .bottom {
+        clear: both;
+        text-align: center;
+    }
+}

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .active {
+            background-color: limegreen;
+        }
+
+        .text-danger {
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- <div id="app">
+        {{ message }}
+    </div>
+
+    <div id="app-2">
+        <span v-bind:title="message">
+            Hover your mouse over me for a few seconds
+            to see my dynamically bound title!
+        </span>
+        <br>
+        {{ reversedMessage }}
+    </div>
+
+    <div id="app-3">
+        <span v-if="seen">Now you see me</span>
+    </div>
+
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+
+    <div id="app-6">
+        <ol>
+            <todo-item></todo-item>
+        </ol>
+    </div>
+
+    <div id="app-7">
+        <ol>
+            <p>
+                Now we provide each todo-item with the todo object
+                it's representing, so that its content can be dynamic.
+                We also need to provide each component with a "key",
+                which will be explained later.
+            </p>
+            <todo-item-2 v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"></todo-item-2>
+        </ol>
+    </div> -->
+
+    <!-- <div id="watch-example">
+        <p>
+            Ask a yes/no question:
+            <input v-model="question">
+        </p>
+        <p v-bind:class="classObject">{{ answer }}</p>
+    </div>
+
+    <div id="component-reusable">
+        <template v-if="loginType === 'username'" key="username">
+            <label>Username</label>
+            <input placeholder="Enter your username">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address" key="email">
+        </template>
+    </div> -->
+
+    <!-- <div id="for-example-1">
+        <ul>
+            <li v-for="item in userProfile">{{ item }}</li>
+        </ul>
+        <button v-on:click="addPhoneProperty()">Add telephone</button>
+    </div> -->
+
+    <!-- <div id="todo-list-example">
+        <form v-on:submit.prevent="addNewTodo">
+            <label for="new-todo">Add a todo</label>
+            <input v-model="newTodoText" id="new-todo" placeholder="E.g. Feed the cat">
+            <button>Add</button>
+        </form>
+        <ul>
+            <li is="todo-item-3" v-for="(todo, index) in todos" v-bind:key="todo.id" v-bind:title="todo.title"
+                v-on:remove="todos.splice(index, 1)"></li>
+        </ul>
+    </div> -->
+
+    <div id="multi-line">
+        <span>Multiline message is:</span>
+        <p style="white-space: pre-line;">{{ message }}</p>
+        <br>
+        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+        <br>
+        <hr>
+
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+        <br>
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span>
+        <hr>
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+        <!-- <hr>
+        <select v-model="selected">
+            <option disabled value="">Please select one</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>Selected: {{ selected }}</span> -->
+        <hr>
+        <select v-model="selected" multiple>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    <div id="blog-post">
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post" v-on:enlarge-text="postFontSize += 0.1"></blog-post>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+
+        Vue.component('blog-post', {
+            props: ['post'],
+            template: `
+                    <div class="blog-post">
+                    <h3>{{ post.title }}</h3>
+                    <button v-on:click="$emit('enlarge-text')">
+                        Enlarge text
+                    </button>
+                    <div v-html="post.content"></div>
+                    </div>
+                `
+        })
+
+        var blogPost = new Vue({
+            el: '#blog-post',
+            data: {
+                posts: [
+                    { id: 1, title: 'My journey with Vue', content: 'amossss 11111 <b>negrita</b>' },
+                    { id: 2, title: 'Blogging with Vue', content: 'amossss 2222 <i>cursiva</i>' },
+                    { id: 3, title: 'Why Vue is so fun' , content: 'amossss 3333 <code>código</code>'}
+                ],
+                postFontSize: 1
+            }
+        })
+
+        var multiLine = new Vue({
+            el: '#multi-line',
+            data: {
+                message: '',
+                checked: true,
+                checkedNames: [],
+                picked: 'One',
+                selected: ''
+            }
+        })
+
+        Vue.component('todo-item-3', {
+            template: '\
+                        <li>\
+                        {{ title }}\
+                        <button v-on:click="$emit(\'remove\')">Remove</button>\
+                        </li>\
+                    ',
+            props: ['title']
+        })
+
+        var todoListExample = new Vue({
+            el: '#todo-list-example',
+            data: {
+                newTodoText: '',
+                todos: [
+                    {
+                        id: 1,
+                        title: 'Do the dishes',
+                    },
+                    {
+                        id: 2,
+                        title: 'Take out the trash',
+                    },
+                    {
+                        id: 3,
+                        title: 'Mow the lawn'
+                    }
+                ],
+                nextTodoId: 4
+            },
+            methods: {
+                addNewTodo: function () {
+                    this.todos.push({
+                        id: this.nextTodoId++,
+                        title: this.newTodoText
+                    })
+                    this.newTodoText = ''
+                }
+            }
+        })
+
+        var forExample1 = new Vue({
+            el: "#for-example-1",
+            data: {
+                userProfile: {
+                    name: 'jander name',
+                    surname: 'jander surname'
+                }
+            },
+            methods: {
+                addPhoneProperty: function () {
+                    forExample1.$set(forExample1.userProfile, 'phone', '667778888')
+                }
+            }
+        })
+
+
+        // Define a new component called todo-item
+        Vue.component('todo-item', {
+            template: '<li>This is a todo</li>'
+        })
+
+        Vue.component('todo-item-2', {
+            // The todo-item component now accepts a
+            // "prop", which is like a custom attribute.
+            // This prop is called todo.
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+
+        var app2 = new Vue({
+            el: '#app-2',
+            data: {
+                message: 'You loaded this page on ' + new Date().toLocaleString()
+            },
+            computed: {
+                reversedMessage: function () {
+                    return this.message.split('').reverse().join('');
+                }
+            }
+        })
+
+        var app3 = new Vue({
+            el: '#app-3',
+            data: {
+                seen: true
+            }
+        })
+
+        var app4 = new Vue({
+            el: '#app-4',
+            data: {
+                todos: [
+                    { text: 'Learn JavaScript' },
+                    { text: 'Learn Vue' },
+                    { text: 'Build something awesome' }
+                ]
+            }
+        })
+
+        var app5 = new Vue({
+            el: '#app-5',
+            data: {
+                message: 'Hello Vue.js!'
+            },
+            methods: {
+                reverseMessage: function () {
+                    this.message = this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+        var app6 = new Vue({
+            el: '#app-6',
+        })
+
+        var app7 = new Vue({
+            el: '#app-7',
+            data: {
+                groceryList: [
+                    { id: 0, text: 'Vegetables' },
+                    { id: 1, text: 'Cheese' },
+                    { id: 2, text: 'Whatever else humans are supposed to eat' }
+                ]
+            }
+        })
+
+        var componentReusable = new Vue({
+            el: '#component-reusable',
+            data: {
+                loginType: 'username'
+            }
+        })
+
+
+        var watchExampleVM = new Vue({
+            el: '#watch-example',
+            data: {
+                question: '',
+                answer: 'I cannot give you an answer until you ask a question!',
+                isActive: false,
+                error: null
+            },
+            watch: {
+                // whenever question changes, this function will run
+                question: function (newQuestion, oldQuestion) {
+                    this.answer = 'Waiting for you to stop typing...'
+                    this.debouncedGetAnswer()
+                }
+            },
+            created: function () {
+                // _.debounce is a function provided by lodash to limit how
+                // often a particularly expensive operation can be run.
+                // In this case, we want to limit how often we access
+                // yesno.wtf/api, waiting until the user has completely
+                // finished typing before making the ajax request. To learn
+                // more about the _.debounce function (and its cousin
+                // _.throttle), visit: https://lodash.com/docs#debounce
+                this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+            },
+            computed: {
+                classObject: function () {
+                    return {
+                        active: this.isActive && !this.error,
+                        'text-danger': this.error
+                    }
+                }
+            },
+            methods: {
+                getAnswer: function () {
+                    if (this.question.indexOf('?') === -1) {
+                        this.answer = 'Questions usually contain a question mark. ;-)'
+                        return
+                    }
+                    this.answer = 'Thinking...'
+                    var vm = this
+                    axios.get('https://yesno.wtf/api')
+                        .then(function (response) {
+                            vm.answer = _.capitalize(response.data.answer)
+                            vm.isActive = vm.answer === 'Yes'
+                            vm.error = vm.answer === 'No'
+                        })
+                        .catch(function (error) {
+                            vm.answer = 'Error! Could not reach the API. ' + error
+                        })
+                }
+            }
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>
