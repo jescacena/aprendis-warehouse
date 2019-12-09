@@ -1,0 +1,28 @@
+{
+    "products": [
+        {
+            "code": "CAP",
+            "name": "Cabify Cap",
+            "price": 5.0,
+            "image": "cap.png",
+            "imageDetail": "https://raw.githubusercontent.com/cabify/frontend-shopping-cart-challenge/master/img/cap.png",
+            "discount": { "id": "N_FOR_1", "numItems": 2 }
+        },
+        {
+            "code": "TSHIRT",
+            "name": "Cabify T-Shirt ",
+            "price": 20.0,
+            "image": "shirt.png",
+            "imageDetail": "https://raw.githubusercontent.com/cabify/frontend-shopping-cart-challenge/master/bonus/tshirt.jpg",
+            "discount": null
+        },
+        {
+            "code": "MUG",
+            "name": "Cafify Coffee Mug",
+            "price": 7.5,
+            "image": "mug.png",
+            "imageDetail": "https://raw.githubusercontent.com/cabify/frontend-shopping-cart-challenge/master/img/mug.png",
+            "discount": { "id": "BULK", "numItems": 3, "percentage": 5 }
+        }
+    ]
+}

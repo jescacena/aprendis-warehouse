@@ -1,0 +1,6 @@
+export {default as DataService} from './services/data.service'
+export {default as HelperService} from './services/helper.service'
+export {ProductModel} from './model/ProductModel.class'
+export {DiscountModel} from './model/DiscountModel.class'
+export {DiscountLineModel} from './model/DiscountLineModel.class'
+export {CartLineModel} from './model/CartLineModel.class'
