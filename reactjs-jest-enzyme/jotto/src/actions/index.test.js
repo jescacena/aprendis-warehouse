@@ -3,7 +3,7 @@ import moxios from "moxios";
 
 import { storeFactory } from "../../test/testUtils";
 
-import { getSecretWord } from "./index";
+import { getSecretWord, setShowFailureMessage } from "./index";
 
 describe("getSecretWord action creator", () => {
     beforeEach(() => {

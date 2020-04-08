@@ -3,7 +3,7 @@ import { shallow } from "enzyme";
 
 import { findByTestAttr, storeFactory } from "../test/testUtils";
 
-import Input from "./Input";
+import Input, { UnconnectedInput } from "./Input";
 
 const setup = (initialState = {}) => {
     const store = storeFactory(initialState);
@@ -13,7 +13,6 @@ const setup = (initialState = {}) => {
     // console.log(wrapper.debug());
     return wrapper;
 };
-// setup();
 describe("render", () => {
     let wrapper;
     beforeEach(() => {
@@ -55,4 +54,56 @@ describe("render", () => {
     });
 });
 
-describe("update state", () => {});
+describe("redux props", () => {
+    test("has success piece of state as prop", () => {
+        const success = true;
+        const wrapper = setup({ success });
+
+        const successProp = wrapper.instance().props.success;
+
+        expect(successProp).toBe(success);
+    });
+
+    test("guessWord action creator is a function prop", () => {
+        const wrapper = setup();
+        const guessWordProp = wrapper.instance().props.guessWord;
+
+        expect(guessWordProp).toBeInstanceOf(Function);
+    });
+});
+
+describe("guessWord runs on Input submit click", () => {
+    let guessWordMock;
+    let wrapper;
+    const guessedWord = "train";
+
+    beforeEach(() => {
+        guessWordMock = jest.fn();
+        const props = {
+            guessWord: guessWordMock
+        };
+        wrapper = shallow(<UnconnectedInput {...props} />);
+
+        // add value to input box
+        wrapper.setState({ currentGuess: guessedWord });
+
+        // simulate click on submit button
+        const submitButton = findByTestAttr(wrapper, "submit-button");
+        submitButton.simulate("click", { preventDefault() {} });
+    });
+
+    test("guessWord runs on Input submit click", () => {
+        const callsCount = guessWordMock.mock.calls.length;
+        expect(callsCount).toBe(1);
+    });
+
+    test("calls 'guessWord' with input value as argument", () => {
+        // console.log("JES --->", guessWordMock.mock.calls);
+        const guessedWordArg = guessWordMock.mock.calls[0][0];
+        expect(guessedWordArg).toBe(guessedWord);
+    });
+
+    test("input box clears on submit", () => {
+        expect(wrapper.state("currentGuess")).toBe("");
+    });
+});

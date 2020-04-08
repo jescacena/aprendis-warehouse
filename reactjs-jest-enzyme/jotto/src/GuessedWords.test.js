@@ -66,4 +66,25 @@ describe("if there are some words guessed", () => {
         const guessWordsNodes = findByTestAttr(wrapper, "guessed-word");
         expect(guessWordsNodes.length).toBe(guessedWords.length);
     });
+
+    test("correct number on number column on first item", () => {
+        const guessNumberNode = findByTestAttr(wrapper, "guess-number-0");
+        // console.log("JES", guessNumberNode.debug());
+
+        const guessNumberValue = guessNumberNode.text();
+        expect(guessNumberValue).toBe("1");
+    });
+
+    test("render total guesses component", () => {
+        const totalGuessesNode = findByTestAttr(wrapper, "total-guesses");
+        expect(totalGuessesNode.length).toBe(1);
+    });
+
+    test("correct number on total guesses component", () => {
+        const totalGuessesNode = findByTestAttr(wrapper, "total-guesses");
+        const totalGuessesValue = totalGuessesNode.text();
+        expect(totalGuessesValue).toBe(
+            "Total guesses " + guessedWords.length.toString()
+        );
+    });
 });

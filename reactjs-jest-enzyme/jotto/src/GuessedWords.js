@@ -6,13 +6,14 @@ const GuessedWords = props => {
     if (props.guessedWords.length === 0) {
         contents = (
             <span data-test="guess-instructions">
-                Try to guess the scret word
+                Try to guess the secret word
             </span>
         );
     } else {
         const guessedWordsRows = props.guessedWords.map((word, index) => {
             return (
                 <tr data-test="guessed-word" key={index}>
+                    <td data-test={`guess-number-${index}`}>{index + 1}</td>
                     <td>{word.guessedWord}</td>
                     <td>{word.letterMatchCount}</td>
                 </tr>
@@ -24,12 +25,16 @@ const GuessedWords = props => {
                 <table className="table table-sm">
                     <thead className="thead thead-light">
                         <tr>
+                            <th></th>
                             <th>Guess</th>
                             <th>Matching letters</th>
                         </tr>
                     </thead>
                     <tbody>{guessedWordsRows}</tbody>
                 </table>
+                <p data-test="total-guesses">
+                    Total guesses {guessedWordsRows.length}
+                </p>
             </div>
         );
     }

@@ -1,5 +1,16 @@
 import { storeFactory } from "../test/testUtils";
-import { guessWord } from "./actions";
+import { guessWord, setShowFailureMessage } from "./actions";
+
+describe("showFailureMessage action creator", () => {
+    test("set showFailureMessage to correct value", () => {
+        const showFailureMessageValue = true;
+        const store = storeFactory();
+
+        store.dispatch(setShowFailureMessage(showFailureMessageValue));
+        const newState = store.getState();
+        expect(newState.showFailureMessage).toEqual(showFailureMessageValue);
+    });
+});
 
 describe("guessWord action dispatcher", () => {
     const secretWord = "party";
@@ -17,6 +28,7 @@ describe("guessWord action dispatcher", () => {
             const expectedState = {
                 ...initialState,
                 success: false,
+                showFailureMessage: false,
                 guessedWords: [
                     {
                         guessedWord: unsuccessfulGuess,
@@ -33,6 +45,7 @@ describe("guessWord action dispatcher", () => {
             const expectedState = {
                 ...initialState,
                 success: true,
+                showFailureMessage: false,
                 guessedWords: [
                     {
                         guessedWord: secretWord,
@@ -57,6 +70,7 @@ describe("guessWord action dispatcher", () => {
             const expectedState = {
                 secretWord,
                 success: false,
+                showFailureMessage: false,
                 guessedWords: [
                     ...guessedWords,
                     { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
@@ -70,6 +84,7 @@ describe("guessWord action dispatcher", () => {
             const expectedState = {
                 secretWord,
                 success: true,
+                showFailureMessage: false,
                 guessedWords: [
                     ...guessedWords,
                     { guessedWord: secretWord, letterMatchCount: 5 }
