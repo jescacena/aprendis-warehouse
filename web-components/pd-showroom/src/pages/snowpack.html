@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Components Showroom</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script type="module" src="../web_modules/@vanillawc/wc-include.js"></script>
+  <script type="module" src="../web_modules/@spectrum-web-components/sidenav.js"></script>
+</head>
+
+<body>
+  <wc-include class="nav" src="../nav.html"></wc-include>
+  <main>
+    <h1>Snowpack</h1>
+
+    <p>Dentro del package.json hay un script de postinstall que llama a <a href="https://www.snowpack.dev/" target="_blank">snowpack</a> y se ejecuta cada vez que hacemos <code>npm install</code>, ya sea porque es la primera instalación o porque hemos traido código nuevo del repositorio.</p>
+
+    <p>Cuando añadimos un módulo nuevo mediante <code>npm install nombre_componente</code> también es conveniente hacer un <code>npm install</code></p>
+
+    <p>Las tareas que realiza snowpack basicamente son exponer dentro del servidor de de desarrollo los módulos <acronym title="ECMAScript Modules">ESM</acronym> que queramos usar en nuestra aplicación. Para ello copia los módulos requeridos de node_modules a la carpera src/web_modules. En caso de que hiciera falta también realiza las tareas de transpilación.</p>
+
+
+    <p>Si usas webpack u otra herramienta de bundling normalmente puedes importar módulos de node_modules sin indicar la ruta relativa al fichero y sin la extensión del fichero: <code>import {LitElement, html} from 'lit-element';</code>. Pero esta manera de realizar la importación no funciona en javascript vanilla sin el uso de alguna de las herramientas mencionadas anteriormente, ya que la ruta al fichero que quieres importar tiene que ser exacta y normalmente no tenemos acceso a node_modules porque esta fuera de la carpeta src.</p>
+    <p>Snowpack nos permite acceder mediante import al recurso que queramos usando la forma normal de javascript ya que expone los recursos que necesitamos de node_modules en la carpeta src/web_modules: <code>import {LitElement, html} from './web_modules/lit-element.js';</code></p>
+
+
+
+  </main>
+
+</body>
+
+</html>

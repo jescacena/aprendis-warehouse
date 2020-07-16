@@ -1,0 +1,52 @@
+<form onSubmit="handleSubmit(event)">
+
+    <h3 style="color: black;">wc-textfield</h3>
+    <wc-textfield label="First name" id="first-name-1">
+        <input slot="input" type="text" id="first-name-1" name="first-name-1" />
+    </wc-textfield>
+    <button onClick="changeInputValues()">
+        Click to change error
+    </button>
+
+    <hr />
+
+    <h3 style="color: black;">wc-litelement-textfield</h3>
+    <wc-litelement-textfield label="First name" id="first-name-2">
+        <input slot="input" type="text" id="first-name-2" name="first-name-2" />
+    </wc-litelement-textfield>
+    <button onClick="changeInputValues2()">
+        Click to change error 2
+    </button>
+    <hr />
+
+    <button type="submit">Submit</button>
+
+</form>
+
+<script>
+    function changeInputValues() {
+        const wcNode = document.querySelector("wc-textfield");
+        wcNode.setAttribute("error", "nuevo error!!");
+    }
+
+    function changeInputValues2() {
+        const wcNode = document.querySelector("wc-litelement-textfield");
+        wcNode.setAttribute("error", "nuevo error litelement!!");
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const wc1 = document.querySelector("#first-name-1");
+        const input1 = wc1.querySelector("#first-name-1");
+
+        // Hack for accessing wc elements inside the shadow dom
+        const label1 = document
+            .querySelector("#first-name-1")
+            .shadowRoot.querySelector("#first-name-1");
+
+        const wc2 = document.querySelector("#first-name-2");
+        const input2 = wc2.querySelector("#first-name-2");
+        console.log("submit!!", label1, input1.value, input2.value);
+    }
+</script>

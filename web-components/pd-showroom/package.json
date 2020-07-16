@@ -1,0 +1,17 @@
+{
+  "name": "paradigma-web-components-showroom",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx servor ./src index.html 8081 --reload --browse",
+    "postinstall": "npx snowpack"
+  },
+  "author": "Paradigma Digital",
+  "devDependencies": {},
+  "dependencies": {
+    "@spectrum-web-components/sidenav": "^0.3.8",
+    "@vanillawc/wc-include": "^1.1.14",
+    "lit-element": "^2.3.1"
+  }
+}

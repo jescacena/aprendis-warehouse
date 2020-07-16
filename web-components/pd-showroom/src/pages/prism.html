@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../assets/img/wc-icon.png">
+  <title>Web Components Showroom</title>
+  <!-- common -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script type="module" src="../web_modules/@vanillawc/wc-include.js"></script>
+  <script type="module" src="../web_modules/@spectrum-web-components/sidenav.js"></script>
+
+  <!-- prism -->
+  <link href="../assets/css/prism.min.css" rel="stylesheet" />
+  <script type="module">
+    import Prism from '../assets/js/prism.js';
+    Prism.highlightAll();
+  </script>
+</head>
+
+<body>
+  <wc-include class="nav" src="../nav.html"></wc-include>
+  <main>
+    <h1>Prism</h1>
+
+
+    <!-- prism -->
+
+
+    <p>Para usar <a href="https://prismjs.com/" target="_blank">Prism</a> como syntax highlighter de código en una
+      página hay que añadir lo siguiente en la cabecera del documento html:</p>
+    <pre><code class="language-markup"><script type="prism-html-markup"><!-- prism -->
+<link href="../assets/css/prism.min.css" rel="stylesheet" />
+<script type="module">
+  import Prism from '../assets/js/prism.js';
+  Prism.highlightAll();</script></code></pre>
+
+    <p><strong>Uso</strong></p>
+    <pre><code class="language-markup"><script type="prism-html-markup"><!-- css code -->
+<pre><code class="language-css">...
+
+<!-- js code -->
+<pre><code class="language-js">...
+
+<!-- html code -->
+<pre><code class="language-markup"><script type="prism-html-markup">...
+</script></code></pre>
+
+    <h3>Ejemplos de uso (ver código fuente)</h3>
+
+    <p><strong>CSS</strong></p>
+    <pre><code class="language-css">p { color: red }</code></pre>
+
+    <p><strong>HTML</strong></p>
+    <pre><code class="language-markup"><script type="prism-html-markup"><h1 class="foo">h1. Heading 1</h1>
+<h2>h2. Heading 2</h2>
+<h3>h3. Heading 3</h3></script></code></pre>
+
+    <p><strong>javascript</strong></p>
+    <pre><code class="language-js">constructor () {
+    super();
+    const template = document.createElement('template');
+    template.innerHTML = WCBlink.template();
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.appendChild(document.importNode(template.content, true));
+}</code></pre>
+
+
+
+  </main>
+
+
+</body>
+
+</html>

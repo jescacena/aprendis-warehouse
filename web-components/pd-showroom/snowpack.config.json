@@ -1,0 +1,10 @@
+{
+  "install": [
+    "@spectrum-web-components/sidenav",
+    "lit-element",
+    "@vanillawc/wc-include"
+  ],
+  "installOptions": {
+    "dest": "src/web_modules/"
+  }
+}

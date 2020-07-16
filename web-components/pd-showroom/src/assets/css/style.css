@@ -1,0 +1,19 @@
+@import 'water.css';
+
+body {max-width:1024px; margin:0 auto; min-height:100vh; display:flex;}
+body > wc-include.nav {display:block; background-color:rgb(245, 245, 245); padding:16px; min-width:200px; max-width:200px; margin-right:32px;}
+body > main {flex-grow: 1; margin-top:16px;}
+header {margin-bottom:20px;}
+.logo {font-size:16px; margin-bottom:16px; font-weight: bold; display: block;}
+
+
+
+/* navigation menu */
+:root {
+  --spectrum-global-dimension-size-150: 8px;
+  --spectrum-alias-highlight-hover: #ddd;
+  --spectrum-sidenav-item-background-color-disabled: var(--spectrum-alias-background-color-transparent);
+  --spectrum-alias-background-color-transparent: transparent;
+  --spectrum-alias-text-color-disabled: rgb(179, 179, 179);
+}
+

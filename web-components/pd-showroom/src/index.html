@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../assets/img/wc-icon.png">
+  <title>Web Components Showroom</title>
+  <!-- common -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script type="module" src="../web_modules/@vanillawc/wc-include.js"></script>
+  <script type="module" src="../web_modules/@spectrum-web-components/sidenav.js"></script>
+
+  <!-- prism -->
+  <link href="../assets/css/prism.min.css" rel="stylesheet" />
+  <script type="module">
+    import Prism from '../assets/js/prism.js';
+    Prism.highlightAll();
+  </script>
+</head>
+
+<body>
+  <wc-include class="nav" src="nav.html"></wc-include>
+  <main>
+    <h1>Paradigma Web Components Showroom</h1>
+    <p>Centro de recursos de web components usables en proyectos de Paradigma. Documentación y tutoriales.</p>
+
+    <!-- todo -->
+    <article>
+      <h2>TO DO</h2>
+      <ul>
+        <li>Decidir vanilla o lit-element</li>
+        <li>Los componentes que usamos para el menú y demos son externos y en un principio provisionales. Ver si los cambiamos o modificamos.</li>
+        <li>Pensar y listar <acronym title="Web Components">WC</acronym> que queramos hacer
+          <ul>
+            <li>datepicker</li>
+          </ul>
+        </li>
+        <li>¿Como distribuimos los componentes?
+            <ul>
+                <li>El equipo de Polymer tienen un portal muy interesante para sacar ideas en este sentido: <a href="https://open-wc.org/index.html">open-wc</a></li>
+                <li>Unit testing: fundamental cubrir de test los componentes para darles robustez y le dé confianza a los consumidores de los wc</li>
+                <li>Documentación / demoying: wc-demo / storybook ? . Recomendación de open-wc: <a href="https://open-wc.org/demoing/">demoying</a></li>
+            </ul>
+        </li>
+        <li></li>
+      </ul>
+    </article>
+
+
+  </main>
+
+
+</body>
+
+</html>
