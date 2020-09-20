@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Ensures optimal rendering on mobile devices. -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Optimal Internet Explorer compatibility -->
+    </head>
+
+    <body>
+        <!-- Update the JavaScript SDK with buttons and funding eligibility -->
+        <script src="https://www.paypal.com/sdk/js?client-id=CLIENTID&components=buttons,funding-eligibility"></script>
+
+        <div id="paypal-button-container"></div>
+
+        <!-- Add the checkout buttons, set up the order and approve the order -->
+        <script>
+            // Loop over each funding source/payment method
+            // paypal.getFundingSources().forEach(function (fundingSource) {
+            //     // Initialize the buttons
+            //     var button = paypal.Buttons({
+            //         fundingSource: fundingSource,
+            //     });
+
+            //     // Check if the button is eligible
+            //     if (button.isEligible()) {
+            //         // Render the standalone button for that funding source
+            //         button.render("#paypal-button-container");
+            //     }
+            // });
+
+            var FUNDING_SOURCES = [
+                paypal.FUNDING.PAYPAL,
+                paypal.FUNDING.VENMO,
+                paypal.FUNDING.CREDIT,
+                paypal.FUNDING.CARD,
+            ];
+
+            // Loop over each funding source/payment method
+            FUNDING_SOURCES.forEach(function (fundingSource) {
+                // Initialize the buttons
+                var button = paypal.Buttons({
+                    fundingSource: fundingSource,
+                });
+
+                // Check if the button is eligible
+                if (button.isEligible()) {
+                    // Render the standalone button for that funding source
+                    button.render("#paypal-button-container");
+                }
+            });
+        </script>
+    </body>
+</html>

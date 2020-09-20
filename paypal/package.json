@@ -1,0 +1,15 @@
+{
+  "name": "paypal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "es-dev-server --app-index index.html --node-resolve --watch --open"
+  },
+  "author": "Javier Escacena <javier.escacena@gmail.com> (http://jesidea.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "es-dev-server": "^1.57.4"
+  }
+}
